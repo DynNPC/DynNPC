@@ -1,0 +1,18 @@
+scenario_env_json: /mnt/sda/AdvFuzz/src/settings/scenario_junction.json
+output_path: /mnt/sda/AdvFuzz/src/outputs/intersection # absolute path
+lgsvl_map: SanFrancisco_correct
+apollo_map: SanFrancisco_correct
+scenario: intersection
+
+pop_size: 4
+npc_size: 4
+time_size: 10
+bounds: [[[0,2],[0,2]],[[0,8],[0,30],[2,8]],[[0,1],[0,9]],[0,15]]
+total_sim_time: 30
+p_mutation: 0.4
+p_crossover: 0.4
+max_gen: 300
+selection: roulette
+
+# apollo reltaed path config
+default_record_folder: /mnt/sda/apollo/data/bag # /home/cmf/apollo/apollo6.0/apollo/data/bag # False means ignoring records

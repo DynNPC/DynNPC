@@ -1,0 +1,13 @@
+lgsvl
+src/outputs
+outputs
+filter_data
+**/__pycache__
+*.log
+filterImg.py
+load.py 
+load.ipynb
+logCheck.py
+calculate_velocity
+datapreprocess
+visualization
