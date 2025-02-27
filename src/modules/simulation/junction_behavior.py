@@ -265,53 +265,6 @@ def straight_forward(distance, npc_position, des):
         waypoints.append(lgsvl.Vector(npc_x + (i+1) * cos, 10, npc_y + (i+1) * sin))
     return waypoints
 
-'''
-    *init_env --ego_zone, ego_des_zone, npc_zone--- all as .json index   ---traffic_signal, init_speed---
-    *run_Simulation:
-        speed_recoed = {}
-        acc_flag = {}
-        action_flag = {}
-        if intersecton:
-            for ... :
-                def move_to_junction():
-                {
-                    npc_zone, npc_des = actonjudge()   ---as actual zone name
-                    to_junction_waypoints = toJunction()
-                    way.extend()
-                }
-                def nextAction():
-                {
-                    way.extend(wayGenerate())
-                }
-                def on_waypoint(agent, index, way[]):
-                {
-                    if index = len(way[agent.name] - 1):
-                        action_flag[agent.name].set()
-                }
-                for npc in npc_list:
-                    if action_flag:
-                        action_flag[npc.name].clear()
-                        way = []
-                        p = threadings.Thread(target = nextAction(), args = ())
-                        p.start()
-                        p.join()
-                        if way is not empty:
-                            npc.follow(way)
-                        else:
-                            npc.follow_closest_lane(0, loop=False)
-                    elif acc_flag:
-                        acc_flag[npc.name].clear()
-                        way = []
-                        p = threadings.Thread(target = move_to_junction(), args = ())
-                        p.start()
-                        p.join()
-                        speed_record[] = way[-1].speed = init_speed
-                        npc.on_waypoint_reached()
-                        npc.follow(way)
-                sim.run
-
-
-'''
 
 def toJunction(sim, npc, npc_zone, init_speed):
     npc_name = npc.name
@@ -319,23 +272,21 @@ def toJunction(sim, npc, npc_zone, init_speed):
     waypoints = []
     
     junction_bound  = junction_bound_start[npc_zone]
-    #print(f"{npc_name} 1")
+    
     forward = lgsvl.utils.transform_to_forward(npc.state.transform)
-    #print(f"{npc_name} 2")
-    #print(f"{npc_name} 3")
+ 
     npc_position = npc.state.position
-    #print(f"{npc_name} 4")
-    # distance < 0
+    
     distance_to_junction = calculate_distance(junction_bound, npc_position, forward)
 
     waypoints = generate_behavior_trajectory(sim, None, [npc_position, init_speed], 
                                                        forward=forward
                                                        , right=None, 
                                                        behavior_type='straight_forward', num_points=20, n=distance_to_junction)
-    #print(f"{npc_name} 7")
+    
     return waypoints
 
-# npc.rotation <--> ego(world).rotation
+
 
 # forward = forward, right = right
 def from1(sim, ego, npc, forward, right, npc_des, init_speed):
@@ -649,17 +600,11 @@ def from14(sim, ego, npc, forward, right, npc_des, init_speed):
 def randomSpeed(ego, npc, waypoints):
     ego_speed = ego.state.speed
     ego_position = np.array([ego.state.position.x, ego.state.position.z])
-    # target = math.ceil(len(waypoints) / 2)
-    
 
-    # collision_point = np.array([waypoints[target].position.x, waypoints[target].position.z])
-    
-    # distance_vector = collision_point - ego_position
     forward = lgsvl.utils.transform_to_forward(ego.state.transform)
-    #right = lgsvl.utils.transform_to_right(ego.state.transform)
+
     forward = np.array([forward.x, forward.z])
     forward_magnitude = np.linalg.norm(forward)
-    #right = np.array([right.x, right.z])
 
     min_dot = 99999 # ego/npc vector distance
     min_index = None

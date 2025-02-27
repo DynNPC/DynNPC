@@ -6,7 +6,7 @@ from connect_simulator import connect_svl
 
 def on_waypoint(agent, index, total_waypoints):
     print("Waypoint {} reached.".format(index))
-    # 检查是否为路径点列表中的最后一个点
+  
     if index == total_waypoints - 1:
         print("Last waypoint reached, switching to follow closest lane.")
         agent.follow_closest_lane(follow=True, max_speed=6, isLaneChange=False)
@@ -34,9 +34,9 @@ if __name__ == '__main__':
 
     while True:
         sim.run(0.5)
-        # 输出npc1速度
+  
         print(f"npc1 speed: {npc1.state.speed}")
-        # 输出npc1的角度
+  
         # print(f"npc1 angle: {npc1.state.rotation}")
         # If the NPC has not already changed lanes then the distance between the NPC and EGO is calculated
         if not npcChangedLanes:

@@ -1,4 +1,4 @@
-# 导入各种行为模块
+
 import sys
 import os
 
@@ -12,9 +12,7 @@ from behavior_trajectory_solver.straight_forward import straight_forward
 
 
 def generate_behavior_trajectory(sim,ego, npc_status, forward, right, behavior_type, num_points, **kwargs):
-    """
-    根据提供的行为类型调用相应的函数生成路径点。
-    """
+
     # =============Only edit cut_*=================
     if behavior_type == 'follow_lane':
         action_change_freq = kwargs.get('action_change_freq')

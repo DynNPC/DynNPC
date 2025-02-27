@@ -20,7 +20,7 @@ def check_rename_record(default_path, target_path, case_id):
         logger.info(' --- Move: ' + original_fpath + ' ==> ' + target_fpath)
 
 def enable_modules(dv, modules):
-    # try 5 times
+    
     not_all = True
     while not_all:
         not_all = False
@@ -80,8 +80,8 @@ def bezier_derivative(t, P0, P1, P2, P3):
 def calculate_angle(prev_point, current_point):
     delta_x = current_point.x - prev_point.x
     delta_z = current_point.z - prev_point.z
-    angle = np.arctan2(delta_z, delta_x)  # 返回的角度在 -π 到 π 之间
-    return np.degrees(angle)  # 转换为度
+    angle = np.arctan2(delta_z, delta_x)  
+    return np.degrees(angle)  
 
 
 def calculate_distance(pos1, pos2):

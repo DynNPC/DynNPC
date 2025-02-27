@@ -31,7 +31,7 @@ def raycast_to_ground(sim, position):
         return None
 
 
-# 贝塞尔曲线
+
 def bezier_point(t, P0, P1, P2, P3):
     """ Calculate the cubic Bezier curve point at t """
     return (1 - t) ** 3 * P0 + 3 * (1 - t) ** 2 * t * P1 + 3 * (1 - t) * t ** 2 * P2 + t ** 3 * P3
@@ -41,7 +41,7 @@ def calculate_curvature(point1, point2, point3):
     """ 计算三点定义的曲率 """
     if np.array_equal(point1, point2) or np.array_equal(point2, point3):
         return 0
-    # 用三点计算曲率的方法
+ 
     k = 0.5 * (point1.x * (point2.y - point3.y) - point2.x * (point1.y - point3.y) + point3.x * (point1.y - point2.y)) / \
         (point1.x * point2.x + point2.y * point3.y + point3.x * point1.y -
          point1.y * point2.x - point2.y * point3.x - point3.y * point1.x)
@@ -58,8 +58,8 @@ def bezier_derivative(t, P0, P1, P2, P3):
 def calculate_angle(prev_point, current_point):
     delta_x = current_point.x - prev_point.x
     delta_z = current_point.z - prev_point.z
-    angle = np.arctan2(delta_z, delta_x)  # 返回的角度在 -π 到 π 之间
-    return np.degrees(angle)  # 转换为度
+    angle = np.arctan2(delta_z, delta_x)  
+    return np.degrees(angle)  
 
 
 def smooth_angles(angles, window_size=3):

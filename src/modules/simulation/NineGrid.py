@@ -10,46 +10,46 @@ class NineGrid:
         self.grid_height = grid_height
 
     def get_ego_region(self, ego_position):
-        # 使用npc的当前位置和方向
+     
         npc_position = self.npc.state.position
 
-        # 计算相对位置
+       
         relative_position = lgsvl.Vector(ego_position.x - npc_position.x,
                                           ego_position.y - npc_position.y,
                                           ego_position.z - npc_position.z)
 
-        # 创建矩阵A和向量b
+      
         A = np.array([
             [self.forward.x, self.right.x],
             [self.forward.z, self.right.z]
         ])
         b = np.array([relative_position.x, relative_position.z])
 
-        # 解线性方程组来找到m和n
+      
         try:
             m, n = np.linalg.solve(A, b)
         except np.linalg.LinAlgError:
-            return None  # 如果A不可逆，则返回None
+            return None  
 
-        # 根据m和n的值判断九宫格位置
+       
         if abs(m) <= self.grid_height * 1.5 and abs(n) <= self.grid_width * 1.5:
-            # 判断列
+           
             if abs(n) <= self.grid_width * 0.5:
-                col = 2  # 中
+                col = 2  
             elif n > self.grid_width * 0.5:
-                col = 3  # 右
+                col = 3  
             else:
-                col = 1  # 左
+                col = 1  
 
-            # 判断行
+            
             if abs(m) <= self.grid_height * 0.5:
-                row = 2  # 中
+                row = 2  
             elif m > self.grid_height * 0.5:
-                row = 1  # 上
+                row = 1  
             else:
-                row = 3  # 下
+                row = 3  
 
-            # 根据行列确定区域编号
+          
             if row == 3:
                 if col == 1:
                     return 5  # Zone L1
@@ -63,11 +63,11 @@ class NineGrid:
                 elif col == 3:
                     return 3    # Zone R2
                 elif col == 2:
-                    return 0    # 中间npc位置
+                    return 0    
             elif row == 1:
                 if col == 1 or col == 3:
                     return 6  # Zone L3/R3
                 if col == 2:
                     return 7
-        return None  # 如果m和n的值不在预期范围内，则返回None
+        return None  
 

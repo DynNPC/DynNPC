@@ -66,7 +66,7 @@ def get_bbox(agent):
 
 def get_bbox2(agent,bbox):
     agent_theta = agent.state.transform.rotation.y
-    agent_bbox = bbox  # 这里假设 NpcVehicle 有一个 bbox 属性
+    agent_bbox = bbox  
 
     global_x = agent.state.transform.position.x
     global_z = agent.state.transform.position.z
@@ -205,9 +205,9 @@ def ego_edge_line_fault(ego, edge_line_points):
 def ego_cross_line(ego, cross_lines):
     ego_bbox = get_bbox(ego)
     
-    # 检查是否为嵌套列表
+  
     if isinstance(cross_lines[0][0][0], list):
-        # 如果cross_lines是嵌套列表
+       
         print("嵌套列表")
         for cross_line_group in cross_lines:
             for cross_line_points in cross_line_group:
@@ -215,7 +215,7 @@ def ego_cross_line(ego, cross_lines):
                 if ego_bbox.distance(cross_line) <= 0:
                     return True
     else:
-        # 如果cross_lines是普通列表
+     
         print("普通列表")
         for cross_line_points in cross_lines:
             cross_line = LineString(cross_line_points)
@@ -240,7 +240,7 @@ def ego_collision_fault(ego, npc, cross_lines):
         logger.debug('Ego cross, seen as the ego fault')
         return True
     else:
-        # zhui wei & jia sai
+       
         logger.debug('Ego stay in line')
         if direct_ego_npc <= 0:
             logger.error('NPC fault')

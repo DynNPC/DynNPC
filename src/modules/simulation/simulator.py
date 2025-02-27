@@ -467,10 +467,10 @@ class Simulator(object):
 
             # Frequency of action change of NPCs
             total_sim_time = self.total_sim_time 
-            # action_change_freq = 5 # 完成动作需要的时间
+            # action_change_freq = 5 
 
 
-            # 初始化动作计算控制
+           
   
             action_flag = {}
             speed_record = {}
@@ -488,9 +488,7 @@ class Simulator(object):
                 #skip[npc.name] = False
             
             threads = []
-            # TODO 有必要吗   
-            # 假设总仿真时间为30s，每一帧为0.1s，每次run 0.1s并检查当前ego和npc的位置，根据位置执行相应的行为
-            # 需要去除外面时间片的概念
+           
             for j in range(total_sim_time * 10):    # 0.1s * 50
                 if self.isHit:
                     time_index += 1
@@ -516,7 +514,7 @@ class Simulator(object):
                     #for npc in self.mutated_npc_list:
                     #    skip[npc.name] = False
 
-                    for i, npc in enumerate(self.mutated_npc_list):  # 遍历所有npc 
+                    for i, npc in enumerate(self.mutated_npc_list):  
                         # 线程目标函数：计算下一个动作的waypoints
                         def npc_behavior(sim_status, ego_status, npc, way, speed_record, region):
             
@@ -525,34 +523,31 @@ class Simulator(object):
                             
                             waypoints = []
                                 
-                            if region == 5:  # ====如果ego在npc的左后方====
+                            if region == 5: 
                                 waypoints = handle_zone_L1(sim_status, ego_status, npc, forward, right, speed_record)
-                            elif region == 1: # ====ego在npc的右后方====
+                            elif region == 1: 
                                 waypoints = handle_zone_R1(sim_status, ego_status, npc, forward, right, speed_record)
-                            elif region == 4: # ====ego在npc的左测====
+                            elif region == 4: 
                                 waypoints = handle_zone_L2(sim_status, ego_status, npc, forward, right, speed_record)
-                            elif region == 3: # ====ego在npc的右侧====
+                            elif region == 3: 
                                 waypoints = handle_zone_R2(sim_status, ego_status, npc, forward, right, speed_record)    
-                            elif region == 6: # ====ego在npc侧前方====加速后匀速
+                            elif region == 6: 
                                 waypoints = handle_zone_L3_R3(sim_status, npc, forward, speed_record)
-                            elif region == 7 or region == 0 or region == 2: # ====ego在npc同一条lane上====
+                            elif region == 7 or region == 0 or region == 2: 
                                 waypoints = handle_zone_F1orN1(sim_status, ego_status, npc, forward, region, speed_record, timer)
-                            else:   # ego在九宫格外
+                            else:   
                                 waypoints = handle_zone_none(sim_status, npc, forward, speed_record)
-                                # 在原路径点前加入平滑变速，在原路径点后加入保持速度
+                               
                                 
 
-                            # if waypoints is True:
-                            #     skip[npc.name] = True
-                            #     print("in if",skip[npc.name])
-                            # else:
+                         
                             waypoints = keepSpeed(sim_status, npc, forward, smoothSpeed(sim_status, npc, waypoints, forward))
-                                #waypoints = smoothSpeed(sim_status, npc, waypoints)
+                                
                             way.extend(waypoints) 
                             
-                        # 路径回调函数：控制动作计算
+                        
                         def on_waypoint(agent, index, waypoints, action_flag):
-                            # 在最后一个路径点处更改行为控制标志
+                            
                             '''
                             for i in range(len(waypoints)):
                                 print(f"{agent.name}:waypoint{i}----speed{waypoints[i].speed}")
@@ -565,9 +560,9 @@ class Simulator(object):
                         
 
                         npc_status = {}
-                        #print(f"{npc.name} before action: {action_flag[npc.name].is_set()} speed is {npc.state.speed}")
+                        
                         if action_flag[npc.name].is_set():
-                            #print(f"{npc.name} set action")
+                            
                             action_flag[npc.name].clear()
                             way[npc.name] = []
                 
@@ -575,29 +570,23 @@ class Simulator(object):
                             sim_status = self.sim
                             nine_grid = NineGrid(npc, forward, right)
                             region = nine_grid.get_ego_region(ego_status.state.position)
-                            #print("N1 cnt before p:", N1_cnt[npc.name])
+                            
                             p = threading.Thread(target=npc_behavior, args=(sim_status, ego_status, npc, way[npc.name], speed_record, region))
                             p.start()
                             p.join()
-                            #print("before if:", skip[npc.name])
-                            #print("N1 cnt after p:", N1_cnt[npc.name])
-                            # if skip[npc.name] is True:
-                            #     print("before break:", skip[npc.name])
-                            #     action_flag[npc.name].set()
-                            #     break
-                            # else:
+                           
                             speed_record[npc.name] = way[npc.name][-1].speed
                             waypoints = way[npc.name]
                             npc.on_waypoint_reached(lambda agent, index: on_waypoint(
-                                agent, index, waypoints, action_flag))  #改变action_flag
+                                agent, index, waypoints, action_flag))  
                             
                             
                             npc.follow(way[npc.name], loop=False)
                     
                     for npc in self.mutated_npc_list:
-                        # skip帧也不影响计时器-0.1s
+                        
                         timer[npc.name] -= 0.1
-                            # print(f"{npc.name} timer ===={timer[npc.name]}====")
+                            
                         if timer[npc.name] < 0:
                             timer[npc.name] = 2
                             if npc.state.speed == 0:
@@ -606,9 +595,9 @@ class Simulator(object):
                                 logger.info(f"{npc.name} reset action_flag----speed{speed_record[npc.name]}")
                             
 
-                    #print("skip_status:", skip)
+                    
             
-                    # check module_status
+                    
                     module_status_mark = True
                     while module_status_mark:
                         module_status_mark = False
@@ -625,20 +614,9 @@ class Simulator(object):
                     print("Error: The 'transform' key is missing in the agent's state.4")
                     self.sim.run(0.1)
 
-                # self.sim.run(0.1)
-                '''
-                try:
-                    simulation_recording['frames'][time_index] = {
-                        'ego': self.ego.state
-                    }
-                    for npc_i in range(len(self.mutated_npc_list)):
-                        simulation_recording['frames'][time_index]['npc_' + str(npc_i)] = self.mutated_npc_list[npc_i].state
-                except (KeyError,TypeError):
-                    print("Error: The 'transform' key is missing in the agent's state.4")
-                    self.sim.run(0.1)
-                    '''
-                
-                #self.sim.run(0.1)    
+               
+            
+           
 
         elif self.scenarioType == 'intersection':
             logger.info('---Scenario Type: ' + self.scenarioType)
@@ -691,17 +669,15 @@ class Simulator(object):
                         simulation_recording['frames'][time_index]['npc_' + str(npc_i)] = self.mutated_npc_list[npc_i].state
 
 
-                    for i, npc in enumerate(self.mutated_npc_list):  # 遍历所有npc 
+                    for i, npc in enumerate(self.mutated_npc_list):  
                 
                         def move_to_junction(sim_status, npc, way):
                             
-                            # npc_zone, npc_des, des = actionJudge(ego_zone, ego_action_flag, self.npc_init_zone[npc.name], traffic_signal)   
-                            # ego_des = des
+                            
                             
                             npc_zone = zoneJudge(self.npc_init_zone[npc.name])
 
-                            #logger.info(f"ego des: {ego_des}")
-                            #npc_loc[npc.name] = [npc_zone, npc_des]
+                            
                             to_junction_waypoints = toJunction(sim_status, npc, npc_zone, self.npc_init_speed[npc.name])
                             way[npc.name].extend(to_junction_waypoints)
                         
@@ -716,20 +692,20 @@ class Simulator(object):
                                 way[npc.name].extend(next_waypoints)
 
                         def on_waypoint(agent, index, way, action_flag):
-                            #print(f"{agent.name} at index {index} of {len(way)}")
+                            
                             if index == len(way) - 1:
                                 logger.info(f"{agent.name} set flag")
                                 action_flag[agent.name].set()
                             else:
                                 action_flag[agent.name].clear()
-                        # threading
+                        
                         def on_waypoint_next(agent, index, action_flag):
-                            #print(f"{agent.name} next on way")
+                            
                             action_flag[agent.name].clear()
                             
     
                         if acc_flag[npc.name].is_set():
-                            # move to junction
+                            
                             sim_status = self.sim
                             ego_status = self.ego
                             logger.info(f"{npc.name} move to junction")
@@ -739,16 +715,16 @@ class Simulator(object):
                             p.start()
                             p.join()
 
-                            #move_to_junction(sim_status, npc, way, ego_des)
+                            
 
-                            #print(way)
+                            
                             waypoints = way[npc.name]
-                            #print(f"{npc.name} to junction len(way) is {len(waypoints)}")
+                            
                             npc.on_waypoint_reached(lambda agent, index: on_waypoint(
                                 agent, index, waypoints, action_flag)) 
                             npc.follow(way[npc.name], loop=False)   
                         elif action_flag[npc.name].is_set():
-                            # turn or straight
+                            
                             sim_status = self.sim
                             ego_status = self.ego
 
@@ -762,8 +738,7 @@ class Simulator(object):
                                 p.start()
                                 p.join()
 
-                                #nextAction(sim_status, ego_status, npc, way)
-                                #npc.on_waypoint_reached(lambda agent, index: on_waypoint_next(agent, index, action_flag))
+                                
                                 if way[npc.name][0] is not None:
                                     npc.follow(way[npc.name], loop=False)
                                 else:
@@ -773,7 +748,7 @@ class Simulator(object):
 
                         
                     
-                    #check modules
+                    
                     module_status_mark = True
                     while module_status_mark:
                         module_status_mark = False
@@ -849,7 +824,7 @@ class Simulator(object):
                     
                     npc_ego_fitness = liability.compute_danger_fitness(ego_info, npc_info, False)
                     '''
-                    # 计算fitness：两车距离越小越需要, 算得fitness分数越大越好
+                    
                     ego_position = ego_info['state'].position
                     npc_position = npc_info['state'].position
                     npc_ego_fitness = 1 /   ((ego_position.x - npc_position.x) ** 2,
