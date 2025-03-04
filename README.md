@@ -2,7 +2,7 @@
 
 In this work, we propose a novel scenario-based testing framework, DynNPC, to generate more violation scenarios caused by the ADS. Specifically, DynNPC allows NPC vehicles to dynamically generate behaviors using different driving strategies during simulation execution according to traffic signals and the realtime behavior of the Ego vehicle. We compare DynNPC with four state-of-the-art scenario-based testing approaches. Our evaluation has demonstrated the effectiveness and efficiency of DynNPC in finding more violation scenarios caused by the ADS.
 
-![Overview Image](/img/Overview.pdf)
+![Overview Image](/img/Overview.png)
 
 **Note: This is the first version of DynNPC, and we plan to release updates in the future.**
 
