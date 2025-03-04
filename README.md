@@ -1,10 +1,10 @@
-# AdvFuzz: Finding More Violations Caused by the EGO Vehicle in Simulation Testing by Adversarial NPC Vehicles
+# DynNPC: Finding More Violations Caused by ADS in Simulation Testing through Dynamic NPC Behavior Generation
 
-In this work, we propose the concept of adversarial NPC vehicles and introduce AdvFuzz, a novel simulation testing approach, to generate adversarial scenarios on main lanes (e.g., urban roads and highways). AdvFuzz allows NPC vehicles to dynamically interact with the EGO vehicle and regulates the behaviors of NPC vehicles, finding more violation scenarios caused by the EGO vehicle more quickly. We compare AdvFuzz with a random approach and three state-of-the-art scenario-based testing approaches. Our experiments demonstrate that AdvFuzz can generate 198.34% more violation scenarios compared to the other four approaches in 12 hours and increase the proportion of violations caused by the EGO vehicle to 87.04%, which is more than 7 times that of other approaches. Additionally, AdvFuzz is at least 92.21% faster in finding one violation caused by the EGO vehicle than that of the other approaches.
+In this work, we propose a novel scenario-based testing framework, DynNPC, to generate more violation scenarios caused by the ADS. Specifically, DynNPC allows NPC vehicles to dynamically generate behaviors using different driving strategies during simulation execution according to traffic signals and the realtime behavior of the Ego vehicle. We compare DynNPC with four state-of-the-art scenario-based testing approaches. Our evaluation has demonstrated the effectiveness and efficiency of DynNPC in finding more violation scenarios caused by the ADS.
 
 ![Overview Image](/img/Overview_00.png)
 
-**Note: This is the first version of AdvFuzz, and we plan to release updates in the future.**
+**Note: This is the first version of DynNPC, and we plan to release updates in the future.**
 
 **The paper has been submitted to FSE 2025.**
 
@@ -47,15 +47,15 @@ bridge Apollo with LGSVL
 ```sh
 bash scripts/bridge.sh
 ``` 
-### 3. AdvFuzz
+### 3. DynNPC
 
-AdvFuzz is a novel simulation testing approach, to generate adversarial scenarios on main lanes (e.g., urban roads and highways). AdvFuzz allows NPC vehicles to dynamically interact with the EGO vehicle and regulates the behaviors of NPC vehicles, finding more violation scenarios caused by the EGO vehicle more quickly.
+DynNPC is a novel simulation testing approach, to generate adversarial scenarios on main lanes (e.g., urban roads and highways). DynNPC allows NPC vehicles to dynamically interact with the EGO vehicle and regulates the behaviors of NPC vehicles, finding more violation scenarios caused by the EGO vehicle more quickly.
 
-To set up AdvFuzz:
+To set up DynNPC:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/AdvFuzz/AdvFuzz.git
+   git clone https://github.com/DynNPC/DynNPC.git
    ```
 
 2. Navigate to the project directory:
@@ -68,11 +68,12 @@ To set up AdvFuzz:
    pip install -r requirements.txt
    ```
 
-4. Configure AdvFuzz to work with the specific ADS and simulation environment：
-      - Modify the `src/configs/config.yaml` file to specify the simulation environment and the ADS to be tested.
+4. Configure DynNPC to work with the specific ADS and simulation environment：
+      - *Straight Road* : Modify the `src/configs/config.yaml` file to specify the simulation environment and the ADS to be tested.
+      - *Intersection* : Modify the `src/configs/config_int.yaml` file to specify the simulation environment and the ADS to be tested.
       - Modify the `src/settings` file to specify the map and scenario to be tested.
 
-5. Run AdvFuzz:
+5. Run DynNPC:
    ```sh
    python src/main.py
    ```
@@ -199,8 +200,45 @@ python ga_fuzzing.py --simulator svl --n_gen 50 --pop_size 4 --algorithm_name av
 python svl_script/rerun_svl.py
 ```
 
+### 3. CRISCO
+CRISCO is "A Road Structure-based Approach to Test Planning Module of Autonomous Driving System". It can be found at [https://github.com/criscotesting/CRISCO](https://github.com/criscotesting/CRISCO).  
+(Now the latest version is available at [https://gitlab.com/tianhaoxiang20/racer](https://gitlab.com/tianhaoxiang20/racer))
 
-### 3. Random & NSGA2-DT
+To set up CRISCO:
+
+1. Clone the repository:
+   ```sh
+   git clone https://gitlab.com/tianhaoxiang20/racer.git
+   ```
+
+2. Follow the installation instructions provided in the repository's README file.
+
+3. Configure CRISCO to work with the specific ADS and simulation environment.
+
+4. Run CRISCO according to the usage instructions in the repository.
+
+Note: Make sure your system meets the requirements specified in the CRISCO repository before installation.
+
+### 4. BehAVExplor
+BehAVExplor is a novel behavior-guided fuzzing technique to explore the different behaviors of the ego vehicle (i.e., the vehicle controlled by the ADS under test) and detect diverse violations. It can be found at [https://github.com/MingfeiCheng/BehAVExplor](https://github.com/MingfeiCheng/BehAVExplor).  
+
+
+To set up BehAVExplor:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/MingfeiCheng/BehAVExplor
+   ```
+
+2. Follow the installation instructions provided in the repository's README file.
+
+3. Configure BehAVExplor to work with the specific ADS and simulation environment.
+
+4. Run BehAVExplor according to the usage instructions in the repository.
+
+Note: Make sure your system meets the requirements specified in the BehAVExplor repository before installation.
+
+### 5. Random & NSGA2-DT
 Random method generates scenarios with multiple NPC vehicles that travel at random speeds, ignoring traffic rules and other road participants.\
 NSGAII-DT is a multiobjective population-based search method built on learnable evolution models. They are also implemented in [https://github.com/AIasd/ADFuzz](https://github.com/AIasd/ADFuzz).
 
