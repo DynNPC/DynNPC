@@ -1,11 +1,11 @@
-In this work, we propose the concept of adversarial NPC vehicles and introduce AdvFuzz, a novel simulation testing approach, to generate adversarial scenarios on main lanes (e.g., urban roads and highways). AdvFuzz allows NPC vehicles to dynamically interact with the EGO vehicle and regulates the behaviors of NPC vehicles, finding more violation scenarios caused by the EGO vehicle more quickly. We compare AdvFuzz with a random approach and three state-of-the-art scenario-based testing approaches. Our experiments demonstrate that AdvFuzz can generate 198.34% more violation scenarios compared to the other four approaches in 12 hours and increase the proportion of violations caused by the EGO vehicle to 87.04%, which is more than 7 times that of other approaches. Additionally, AdvFuzz is at least 92.21% faster in finding one violation caused by the EGO vehicle than that of the other approaches.
+In this work, we propose a novel scenario-based testing framework, DynNPC, to generate more violation scenarios caused by the ADS. Specifically, DynNPC allows NPC vehicles to dynamically generate behaviors using different driving strategies during simulation execution according to traffic signals and the realtime behavior of the Ego vehicle. We compare DynNPC with four state-of-the-art scenario-based testing approaches. Our evaluation has demonstrated the effectiveness and efficiency of DynNPC in finding more violation scenarios caused by the ADS.
 
-The paper has been submitted to FSE 2025.
+The paper will be submitted to ICSE 2025.
 
 ## For more details, see the code at [DynNPC GitHub Repository](https://github.com/DynNPC/DynNPC).
 
 ## Overview
-![Overview Image](/img/Overview_00.png)
+![Overview Image](/img/Overview.png)
 
 
 ## Waypoints Generation and Speed Planning
