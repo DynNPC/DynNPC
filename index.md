@@ -283,7 +283,6 @@ Two NPC vehicles collide ahead of the Ego vehicle, blocking the lane and forming
 ## **Category 4: Ego Vehicle Runs Red Lights**
 
 ### **Case Study R4-1**
-![R4-1](img/R4-1.gif)
 The Ego vehicle stops when the signal is red and passes the stop line. Then, it loses the perception of the traffic signal and restarts to run a red light through the intersection, indicating a bug in the perception module.
 
 Many above issues stem from **Unrealistic Planning** and **Abrupt Changes in Planned Trajectory Points**, as discussed in [Apollo Issue #15144](https://github.com/ApolloAuto/apollo/issues/15144).
