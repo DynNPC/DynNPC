@@ -234,11 +234,11 @@ The Ego vehicle is going straight through an intersection when an NPC vehicle fr
 The Ego vehicle is making a left turn at an intersection while an NPC vehicle from the opposite direction is making a right turn. The NPC vehicle is moving slowly, leading the Ego vehicle to assign it an *Ignored* tag and proceed without sufficient caution, resulting in a side collision. This suggests that the Ego vehicle has limitations in handling complex interactions during turning maneuvers when slow-moving vehicles are present.
 
 ### **Case Study R1-11**
-![R1-10](img/R1-11.gif)
+![R1-11](img/R1-11.gif)
 When the Ego vehicle turns right to merge into traffic, it predicts the speed of the slowly moving vehicle. Consequently, the Ego vehicle collides with the NPC vehicle while turning, indicating a problem in the prediction~module.
 
 ### **Case Study R1-12**
-![R1-10](img/R1-12.gif)
+![R1-12](img/R1-12.gif)
 The Ego vehicle and an NPC vehicle simultaneously make left turns from opposite directions at an intersection. Due to inaccurate prediction of the NPC vehicle's trajectory, the Ego vehicle fails to yield properly, resulting in a side collision during the turn. This indicates a problem in the prediction module when handling interactive turning behaviors at intersections.
 ---
 
