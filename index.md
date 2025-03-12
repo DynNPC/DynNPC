@@ -233,6 +233,13 @@ The Ego vehicle is going straight through an intersection when an NPC vehicle fr
 ![R1-10](img/R1-10.gif)
 The Ego vehicle is making a left turn at an intersection while an NPC vehicle from the opposite direction is making a right turn. The NPC vehicle is moving slowly, leading the Ego vehicle to assign it an *Ignored* tag and proceed without sufficient caution, resulting in a side collision. This suggests that the Ego vehicle has limitations in handling complex interactions during turning maneuvers when slow-moving vehicles are present.
 
+### **Case Study R1-11**
+![R1-10](img/R1-11.gif)
+When the Ego vehicle turns right to merge into traffic, it predicts the speed of the slowly moving vehicle. Consequently, the Ego vehicle collides with the NPC vehicle while turning, indicating a problem in the prediction~module.
+
+### **Case Study R1-12**
+![R1-10](img/R1-12.gif)
+The Ego vehicle and an NPC vehicle simultaneously make left turns from opposite directions at an intersection. Due to inaccurate prediction of the NPC vehicle's trajectory, the Ego vehicle fails to yield properly, resulting in a side collision during the turn. This indicates a problem in the prediction module when handling interactive turning behaviors at intersections.
 ---
 
 ## **Category 2: Ego Vehicle Hits Illegal Lines**
@@ -241,9 +248,15 @@ The Ego vehicle is making a left turn at an intersection while an NPC vehicle fr
 ![R2-1](img/R2-1.gif)
 When two NPC vehicles occupy the Ego vehicle's lane, the Ego vehicle attempts to avoid them but fails to plan a proper trajectory within the lane boundaries. As a result, the Ego vehicle suddenly crosses the double yellow line, entering the opposite lane, which poses a significant safety risk. This indicates problems in the planning module when handling lane-occupying obstacles.
 
-### **Case Study R2-2**
-![R2-2](img/R2-2.gif)
-The Ego vehicle closely follows an NPC vehicle moving ahead at a low speed. As the distance between the two vehicles becomes short, the Ego vehicle attempts to overtake by crossing the solid line, violating traffic rules and causing a safety risk. This indicates a problem in the decision-making and planning modules when handling slow-moving vehicles in constrained scenarios.
+### **Case Study R2-2**  
+![R2-2](img/R2-2.gif)  
+
+The Ego vehicle closely follows an NPC vehicle moving ahead at a low speed. As the distance between the two vehicles decreases, the Ego vehicle attempts to overtake by crossing the solid line, violating traffic rules and posing a safety risk. This highlights a flaw in the planning and control modules when handling slow-moving vehicles in constrained scenarios.  
+
+This issue has been reported **Bug 09: Planned Trajectory Goes Off-Road** : The control module relies on the **planning trajectory**, making it crucial to ensure its correctness. However, it has been observed that the trajectory can frequently deviate **off-road**, causing the vehicle to collide with the road curb.  
+
+For further details, refer to the issue discussion in [Apollo Issue #15144](https://github.com/ApolloAuto/apollo/issues/15144).
+
 
 ### **Case Study R2-3**
 ![R2-3](img/R2-3.gif)
@@ -273,22 +286,12 @@ Two NPC vehicles collide ahead of the Ego vehicle, blocking the lane and forming
 ![R4-1](img/R4-1.gif)
 The Ego vehicle stops when the signal is red and passes the stop line. Then, it loses the perception of the traffic signal and restarts to run a red light through the intersection, indicating a bug in the perception module.
 
+Many above issues stem from **Unrealistic Planning** and **Abrupt Changes in Planned Trajectory Points**, as discussed in [Apollo Issue #15144](https://github.com/ApolloAuto/apollo/issues/15144).
 
+**Bug 10: Unrealistic Planning** 
+The planned trajectory, particularly the velocity profile, often lacks smoothness, making it difficult for the vehicle to follow accurately. This issue also affects the performance of the control module.
 
-| ![type1](img/type1.gif) | ![type2](img/type2.gif) |
-|:------------------------:|:------------------------:|
-| Type 1: EGO rear-ends NPC changing lanes | Type 2: EGO hits the side of an NPC |
-| ![type3](img/type3.gif) | ![type4](img/type4.gif) |
-| Type 3: EGO collides with an NPC | Type 4: EGO hits the rear of an NPC |
-| ![type5](img/type5.gif) | ![type6](img/type6.gif) |
-| Type 5: EGO hits other NPCs stuck on lane | Type 6: EGO changes across yellow line |
-| ![type7](img/type7.gif) | ![type8](img/type8.gif) |
-| Type 7: EGO hits the yellow line | Type 8: EGO fails to plan trajectory |
-| ![type9](img/type9.gif) | ![type10](img/type10.gif) |
-| Type 9: EGO hits the rear of an NPC | Type 10: EGO side-collides with an NPC |
-| ![type11](img/type11.gif) | ![type12](img/type12.gif) |
-| Type 11: EGO hits the side of an NPC | Type 12: EGO collides with an NPC |
-| ![type13](img/type13.gif) | ![type14](img/type14.gif) |
-| Type 13: EGO collides with two NPC vehicles. | Type 14: EGO fails to plan trajectory |
+**Bug 11: Abrupt Changes in Planned Trajectory Points**
+Abrupt changes in the planned trajectory occur because the trajectory output continuously updates based on the current vehicle state but lacks proper smoothing before being fed into the control module. This instability affects the vehicle's ability to follow the planned path accurately and can lead to control issues, particularly in heading angle, velocity, and acceleration adjustments.
 
 **Note:** To replicate specific experimental scenarios in this documentation, refer to the data stored in the `/records` folder.
