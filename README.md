@@ -238,7 +238,6 @@ To set up BehAVExplor:
 
 Note: Make sure your system meets the requirements specified in the BehAVExplor repository before installation.
 
-### 5. Random & NSGA2-DT
-Random method generates scenarios with multiple NPC vehicles that travel at random speeds, ignoring traffic rules and other road participants.\
-NSGAII-DT is a multiobjective population-based search method built on learnable evolution models. They are also implemented in [https://github.com/AIasd/ADFuzz](https://github.com/AIasd/ADFuzz).
+### 5. DoppelTest
+
 
