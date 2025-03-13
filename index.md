@@ -278,6 +278,10 @@ The Ego vehicle follows an NPC vehicle whose speed fluctuates between normal dri
 ![R3-3](img/R3-3.gif)
 Two NPC vehicles collide ahead of the Ego vehicle, blocking the lane and forming a static obstacle. The Ego vehicle fails to plan a feasible path to change lanes and bypass the obstacle, resulting in it being stuck behind the blocked lane. This indicates limitations in the planning module when handling unexpected road blockages caused by accidents.
 
+### **Case Study R3-4**
+![R3-4](img/R3-4.gif)
+When the turning arc is small, the Ego vehicle may plan off-road trajectories, leading to fluctuating steering behavior while driving. Eventually, the vehicle gets stuck, highlighting issues in both the planning and control modules.
+
 ---
 
 ## **Category 4: Ego Vehicle Runs Red Lights**
@@ -293,4 +297,3 @@ The planned trajectory, particularly the velocity profile, often lacks smoothnes
 **Bug 11: Abrupt Changes in Planned Trajectory Points**
 Abrupt changes in the planned trajectory occur because the trajectory output continuously updates based on the current vehicle state but lacks proper smoothing before being fed into the control module. This instability affects the vehicle's ability to follow the planned path accurately and can lead to control issues, particularly in heading angle, velocity, and acceleration adjustments.
 
-**Note:** To replicate specific experimental scenarios in this documentation, refer to the data stored in the `/records` folder.
