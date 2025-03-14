@@ -306,3 +306,8 @@ The planned trajectory, particularly the velocity profile, often lacks smoothnes
 Abrupt changes in the planned trajectory occur because the trajectory output continuously updates based on the current vehicle state but lacks proper smoothing before being fed into the control module. This instability affects the vehicle's ability to follow the planned path accurately and can lead to control issues, particularly in heading angle, velocity, and acceleration adjustments.
 
 
+<style>
+p {
+    text-align: justify;
+}
+</style>
