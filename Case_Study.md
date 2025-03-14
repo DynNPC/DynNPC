@@ -2,8 +2,6 @@ In this work, we propose a novel scenario-based testing framework, DynNPC, to ge
 
 This work has been submitted to ICSE 2026.
 
-## For more details, see the code at [DynNPC GitHub Repository](https://github.com/DynNPC/DynNPC).
-
 ---
 
 # Overview

@@ -6,7 +6,7 @@ In this work, we propose a novel scenario-based testing framework, DynNPC, to ge
 
 **Note: This is the first version of DynNPC, and we plan to release updates in the future.**
 
-**The paper will be submitted to ICSE 2026.**
+**This work has been submitted to ICSE 2026.**
 
 ## Experiment Environment
 We conduct all the experiments on a system with the following specifications:
