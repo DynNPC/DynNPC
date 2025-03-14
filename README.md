@@ -239,5 +239,25 @@ To set up BehAVExplor:
 Note: Make sure your system meets the requirements specified in the BehAVExplor repository before installation.
 
 ### 5. DoppelTest
+DoppelTest is a Python framework implemented to evaluate a novel autonomous driving software (ADS) testing approach. It can be found at [https://github.com/Software-Aurora-Lab/DoppelTest](https://github.com/Software-Aurora-Lab/DoppelTest).
 
+### INSTALLING DoppelTest
 
+1. Install the required Python libraries via `pip install -r requirements.txt`
+
+> If you run into issues when installing Shapely library, please first run `sudo apt-get install libgeos-dev` to install its dependencies.
+
+2. Replace location of directories in `config.py`
+
+   ```python
+   APOLLO_ROOT  = '/xxx/xxx/apollo'
+   DT_ROOT      = '/xxx/xxx/DoppelTest'
+   ```
+
+3. Verify the framework is runnable via `python test_main.py`
+
+> You should start seeing 3 Apollo instances being started and the scenario is visualizable via a browser. DoppelTest will provide the URL to visualize each instance in the terminal.
+
+4. Start the framework via `python main_ga.py`
+
+> After running DoppelTest for extended period of time, you should see record file of scenarios generated under `data/records`. This is also the step to replicate the results presented in the paper.

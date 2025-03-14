@@ -7,7 +7,7 @@ This work has been submitted to ICSE 2026.
 ---
 
 # Overview
-<img src="img/overview.png" alt="Overview" style="width: 80%; height: auto; display: block; margin: auto;">
+<img src="img/Overview.png" alt="Overview" style="width: 80%; height: auto; display: block; margin: auto;">
 
 
 # Maneuver Constraints
@@ -254,6 +254,8 @@ The Ego vehicle and an NPC vehicle simultaneously make left turns from opposite 
 When two NPC vehicles occupy the Ego vehicle's lane, the Ego vehicle attempts to avoid them but fails to plan a proper trajectory within the lane boundaries. As a result, the Ego vehicle suddenly crosses the double yellow line, entering the opposite lane, which poses a significant safety risk. This indicates problems in the planning module when handling lane-occupying obstacles.
 
 ### **Case Study R2-2**  
+<img src="img/R2-2.png" alt="R2-1" style="width: 50%; height: auto;">
+
 The Ego vehicle closely follows an NPC vehicle moving ahead at a low speed. As the distance between the two vehicles decreases, the Ego vehicle attempts to overtake by crossing the solid line, violating traffic rules and posing a safety risk. This highlights a flaw in the planning and control modules when handling slow-moving vehicles in constrained scenarios.  
 
 This issue has been proved as **Bug 09: Planned Trajectory Goes Off-Road** in [Apollo Issue #15144](https://github.com/ApolloAuto/apollo/issues/15144).
