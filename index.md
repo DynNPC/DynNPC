@@ -7,7 +7,8 @@ This work has been submitted to ICSE 2026.
 ---
 
 # Overview
-![Overview Image](/img/Overview.png)
+<img src="img/overview.png" alt="Overview" style="width: 80%; height: auto; display: block; margin: auto;">
+
 
 # Maneuver Constraints
 
@@ -189,7 +190,7 @@ Here are some dynamically generated scenarios using **DynNPC**, showcasing how t
 
 ## **Overview of Each Ego-induced Violation Pattern**
 
-<img src="img/overview.png" alt="Overview of Types" style="width: 80%; height: auto;" align="center">
+![Overview of Types](img/type.png)
 
 ---
 
