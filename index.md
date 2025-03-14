@@ -188,7 +188,8 @@ where:
 Here are some dynamically generated scenarios using **DynNPC**, showcasing how the EGO vehicle interacts with NPC vehicles.
 
 ## **Overview of Each Ego-induced Violation Pattern**
-![Overview of Types](img/type.png)
+
+<img src="img/overview.png" alt="Overview of Types" style="width: 80%; height: auto;" align="center">
 
 ---
 
