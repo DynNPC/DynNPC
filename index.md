@@ -22,7 +22,7 @@ We utilize the maneuver specifications provided by CRISCO to constrain the posit
 
 ### Left Lane Change
 
-When the **NPC vehicle** \(N_k\) performs a **lane-changing maneuver to the left** at frame \(t_0\), it must:
+When the **NPC vehicle** $N_k$ performs a **lane-changing maneuver to the left** at frame $t_0$, it must:
 
 - Maintain a **safe lane-changing distance** from the **following Ego vehicle**.
 - **Activate the left turn signal** before executing the lane change.
@@ -31,33 +31,29 @@ When the **NPC vehicle** \(N_k\) performs a **lane-changing maneuver to the left
 This maneuver is formally defined as:
 
 $$
-\begin{aligned}
-    &D_{E2N}(p_{E}^{t_0},p_{N_k}^{t_0}) \geq \text{threshold} \\ 
-    &\wedge \ leftSignal(p_{N_k}^{t_0}) = \text{True} \\ 
-    &\wedge \ isSolid(p_{N_k}^{t_0}) = \text{False}
-\end{aligned}
+D_{N2E}(p_{N_k}^{t_0}, p_{E}^{t_0}) \geq \text{threshold} 
+\wedge leftSignal(p_{N_k}^{t_0}) = \text{True} 
+\wedge isSolid(p_{N_k}^{t_0}) = \text{False}
 $$
 
 where:
-- \(D_{E2N}(p_{E}^{t_0},p_{N_k}^{t_0})\) returns the **longitudinal distance** between the NPC vehicle and the Ego vehicle.
-- \(\text{threshold}\) is set to **30 meters** by default.
-- \(leftSignal(p_{N_k}^{t_0})\) indicates if the NPC **left turn signal** is active.
-- \(isSolid(p_{N_k}^{t_0})\) checks if **lane markings are solid**.
+- $D_{N2E}(p_{N_k}^{t_0}, p_{E}^{t_0})$ returns the **longitudinal distance** between the NPC vehicle and the Ego vehicle.
+- $\text{threshold}$ is set to **30 meters** by default.
+- $leftSignal(p_{N_k}^{t_0})$ indicates if the NPC **left turn signal** is active.
+- $isSolid(p_{N_k}^{t_0})$ checks if **lane markings are solid**.
 
 ### Right Lane Change
 
 For a **right lane change**, the NPC vehicle must satisfy the following constraints:
 
 $$
-\begin{aligned}
-    &D_{E2N}(p_{E}^{t_0},p_{N_k}^{t_0}) \geq \text{threshold} \\ 
-    &\wedge \ rightSignal(p_{N_k}^{t_0}) = \text{True} \\ 
-    &\wedge \ isSolid(p_{N_k}^{t_0}) = \text{False}
-\end{aligned}
+D_{N2E}(p_{N_k}^{t_0}, p_{E}^{t_0}) \geq \text{threshold} 
+\wedge rightSignal(p_{N_k}^{t_0}) = \text{True} 
+\wedge isSolid(p_{N_k}^{t_0}) = \text{False}
 $$
 
 where:
-- \(rightSignal(p_{N_k}^{t_0})\) checks if the **right turn signal** is active.
+- $rightSignal(p_{N_k}^{t_0})$ checks if the **right turn signal** is active.
 
 ---
 
@@ -73,36 +69,32 @@ When an NPC vehicle is **turning left** at an intersection or junction, it must:
 - **Check pedestrian crossings** before executing the maneuver.
 
 $$
-\begin{aligned}
-    &speed(p_{N_k}^{t_0}) \leq \text{speedLimit}_{turn} \\ 
-    &\wedge \ leftSignal(p_{N_k}^{t_0}) = \text{True} \\ 
-    &\wedge \ gapOncoming(p_{N_k}^{t_0}) \geq \text{safeGap} \\ 
-    &\wedge \ pedestrianClear(p_{N_k}^{t_0}) = \text{True}
-\end{aligned}
+speed(p_{N_k}^{t_0}) \leq \text{speedLimit}_{turn} 
+\wedge leftSignal(p_{N_k}^{t_0}) = \text{True} 
+\wedge gapOncoming(p_{N_k}^{t_0}) \geq \text{safeGap} 
+\wedge pedestrianClear(p_{N_k}^{t_0}) = \text{True}
 $$
 
 where:
-- \(speed(p_{N_k}^{t_0})\) represents the NPC vehicle’s **speed** at frame \(t_0\).
-- \(\text{speedLimit}_{turn}\) is a **turning speed limit** (e.g., **20 km/h**).
-- \(gapOncoming(p_{N_k}^{t_0})\) measures the **distance from the nearest oncoming vehicle**.
-- \(\text{safeGap}\) is a predefined **safe distance**. (e.g., **10 meters**)
-- \(pedestrianClear(p_{N_k}^{t_0})\) ensures **no pedestrians are crossing**.
+- $speed(p_{N_k}^{t_0})$ represents the NPC vehicle’s **speed** at frame $t_0$.
+- $\text{speedLimit}_{turn}$ is a **turning speed limit** (e.g., **20 km/h**).
+- $gapOncoming(p_{N_k}^{t_0})$ measures the **distance from the nearest oncoming vehicle**.
+- $\text{safeGap}$ is a predefined **safe distance** (e.g., **10 meters**).
+- $pedestrianClear(p_{N_k}^{t_0})$ ensures **no pedestrians are crossing**.
 
 ### Right Turn
 
 Similar constraints apply to a **right turn**, but the vehicle must yield to pedestrians on the right:
 
 $$
-\begin{aligned}
-    &speed(p_{N_k}^{t_0}) \leq \text{speedLimit}_{turn} \\ 
-    &\wedge \ rightSignal(p_{N_k}^{t_0}) = \text{True} \\ 
-    &\wedge \ gapOncoming(p_{N_k}^{t_0}) \geq \text{safeGap} \\
-    &\wedge \ pedestrianClearRight(p_{N_k}^{t_0}) = \text{True}
-\end{aligned}
+speed(p_{N_k}^{t_0}) \leq \text{speedLimit}_{turn} 
+\wedge rightSignal(p_{N_k}^{t_0}) = \text{True} 
+\wedge gapOncoming(p_{N_k}^{t_0}) \geq \text{safeGap} 
+\wedge pedestrianClearRight(p_{N_k}^{t_0}) = \text{True}
 $$
 
 where:
-- \(pedestrianClearRight(p_{N_k}^{t_0})\) ensures **no pedestrians are crossing** from the right side.
+- $pedestrianClearRight(p_{N_k}^{t_0})$ ensures **no pedestrians are crossing** from the right side.
 
 ---
 
@@ -116,17 +108,15 @@ An NPC vehicle **decelerates** when:
 - There is a **speed limit reduction** in the upcoming road section.
 
 $$
-\begin{aligned}
-    &acceleration(p_{N_k}^{t_0}) \leq \text{decelerationThreshold} \\ 
-    &\wedge \ (trafficLight(p_{N_k}^{t_0}) = \text{Red} \vee speedLimitDrop(p_{N_k}^{t_0}) = \text{True})
-\end{aligned}
+acceleration(p_{N_k}^{t_0}) \leq \text{decelerationThreshold} 
+\wedge (trafficLight(p_{N_k}^{t_0}) = \text{Red} \vee speedLimitDrop(p_{N_k}^{t_0}) = \text{True})
 $$
 
 where:
-- \(\text{decelerationThreshold}\) is a predefined **deceleration limit**. (e.g., **-5 m/s²**)
-- \(acceleration(p_{N_k}^{t_0})\) checks the **negative acceleration** (deceleration).
-- \(trafficLight(p_{N_k}^{t_0})\) determines **traffic signal color**.
-- \(speedLimitDrop(p_{N_k}^{t_0})\) identifies an upcoming **speed limit reduction**.
+- $\text{decelerationThreshold}$ is a predefined **deceleration limit** (e.g., **-5 m/s²**).
+- $acceleration(p_{N_k}^{t_0})$ checks the **negative acceleration** (deceleration).
+- $trafficLight(p_{N_k}^{t_0})$ determines **traffic signal color**.
+- $speedLimitDrop(p_{N_k}^{t_0})$ identifies an upcoming **speed limit reduction**.
 
 ### Accelerating
 
@@ -136,15 +126,13 @@ NPC vehicles can **accelerate** under these conditions:
 - The **road speed limit increases**.
 
 $$
-\begin{aligned}
-    &acceleration(p_{N_k}^{t_0}) \geq \text{accelerationThreshold} \\ 
-    &\wedge \ (trafficLight(p_{N_k}^{t_0}) = \text{Green} \vee speedLimitIncrease(p_{N_k}^{t_0}) = \text{True})
-\end{aligned}
+acceleration(p_{N_k}^{t_0}) \geq \text{accelerationThreshold} 
+\wedge (trafficLight(p_{N_k}^{t_0}) = \text{Green} \vee speedLimitIncrease(p_{N_k}^{t_0}) = \text{True})
 $$
 
 where:
-- \(\text{accelerationThreshold}\) is a predefined **acceleration limit**. (e.g., **5 m/s²**)
-- \(speedLimitIncrease(p_{N_k}^{t_0})\) identifies an **upcoming speed limit increase**.
+- $\text{accelerationThreshold}$ is a predefined **acceleration limit** (e.g., **5 m/s²**).
+- $speedLimitIncrease(p_{N_k}^{t_0})$ identifies an **upcoming speed limit increase**.
 
 ---
 
@@ -155,31 +143,28 @@ where:
 NPC vehicles may **pass** slower vehicles under safe conditions:
 
 $$
-\begin{aligned}
-    &speed(p_{N_k}^{t_0}) > speed(p_{ahead}^{t_0}) \\ 
-    &\wedge \ gapLeft(p_{N_k}^{t_0}) \geq \text{safeGap} \\ 
-    &\wedge \ leftSignal(p_{N_k}^{t_0}) = \text{True}
-\end{aligned}
+speed(p_{N_k}^{t_0}) > speed(p_{ahead}^{t_0}) 
+\wedge gapLeft(p_{N_k}^{t_0}) \geq \text{safeGap} 
+\wedge leftSignal(p_{N_k}^{t_0}) = \text{True}
 $$
 
 where:
-- \(p_{ahead}^{t_0}\) represents the **vehicle in front**.
-- \(gapLeft(p_{N_k}^{t_0})\) checks **safe passing space** on the left.
-- \(\text{safeGap}\) is a predefined **safe distance**. (e.g., **5 meters**)
+- $p_{ahead}^{t_0}$ represents the **vehicle in front**.
+- $gapLeft(p_{N_k}^{t_0})$ checks **safe passing space** on the left.
+- $\text{safeGap}$ is a predefined **safe distance** (e.g., **5 meters**).
 
 ### Parking
 
 An NPC vehicle **parks** when:
 
 $$
-\begin{aligned}
-    &speed(p_{N_k}^{t_0}) = 0 \\ 
-    &\wedge \ isParkingZone(p_{N_k}^{t_0}) = \text{True}
-\end{aligned}
+speed(p_{N_k}^{t_0}) = 0 
+\wedge isParkingZone(p_{N_k}^{t_0}) = \text{True}
 $$
 
 where:
-- \(isParkingZone(p_{N_k}^{t_0})\) ensures the vehicle is in a **designated parking area**. (e.g., **parking lot**)
+- $isParkingZone(p_{N_k}^{t_0})$ ensures the vehicle is in a **designated parking area** (e.g., **parking lot**).
+
 
 
 ---
