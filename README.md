@@ -6,8 +6,6 @@ In this work, we propose a novel scenario-based testing framework, DynNPC, to ge
 
 **Note: This is the first version of DynNPC, and we plan to release updates in the future.**
 
-**This work has been submitted to ICSE 2026.**
-
 ## Experiment Environment
 We conduct all the experiments on a system with the following specifications:
 
@@ -24,9 +22,10 @@ We conduct all the experiments on a system with the following specifications:
 ### 1. Install the LGSVL Simulator
 LGSVL simulator can be installed from https://github.com/lgsvl/simulator .We are using the latest version, 2021.3.\
 LGSVL has made the difficult decision to suspend active development of SVL Simulator, as of January 1, 2022. The cloud had stopped running on June 30, 2022.Therefore, we use SORA-SVL to build our own server as a replacement.SORA-SVL can be installed from https://github.com/YuqiHuai/SORA-SVL
-### 2. Install Apollo 8.0
+### 2. Install Apollo 7.0
 clone source code
 ```sh
+$ git checkout r7.0.0
 $ git clone https://github.com/ApolloAuto/apollo.git
 ```
 pull docker image and enter the container(This step may take a long time)
@@ -36,7 +35,7 @@ $ sudo bash ./docker/scripts/dev_into.sh
 ```
 build Apollo
 ```sh
-sudo ./apollo.sh build
+sudo ./apollo.sh build_opt
 ```
 start dreamviewer
 ```sh
